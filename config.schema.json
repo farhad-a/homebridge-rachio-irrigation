@@ -7,11 +7,12 @@
     "type": "object",
     "properties": {
       "name": {
-        "title": "Accessory Name:",
+        "title": "Accessory Name",
         "description": "Name for the accessory",
         "type": "string",
         "required": true,
-        "default": "Rachio"
+        "default": "Rachio",
+        "placeholder": "Rachio"
       },
       "api_key": {
         "title": "Rachio API Key",
@@ -103,6 +104,13 @@
         "type": "boolean",
         "required": false,
         "default": false
+      },
+      "device_id": {
+        "title": "Rachio Controller Device ID",
+        "description": "Device ID of the Rachio Controller to use. Only necessary if you have more than one controller linked to your account and want to connect only one to HomeKit. Entering a Device ID here will ignore all other controllers linked to your account.",
+        "type": "string",
+        "required": false,
+        "placeholder": "Rachio Controller Device ID"
       }
     }
   },
@@ -143,13 +151,14 @@
     },
     {
       "type": "fieldset",
-      "title": "Extra Switches",
-      "description": "Expand to expose additonal switches",
+      "title": "Extra Options",
+      "description": "Expand for additonal options",
       "expandable": true,
       "items": [
         "show_standby",
         "show_schedules",
-        "show_runall"
+        "show_runall",
+        "device_id"
       ]
     },   
     {

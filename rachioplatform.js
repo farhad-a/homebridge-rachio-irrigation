@@ -38,6 +38,7 @@ class RachioPlatform {
     this.show_standby = config["show_standby"]
     this.show_runall = config["show_runall"]
     this.show_schedules = config["show_schedules"]
+    this.device_id = config['device_id']
     this.accessories = []
     this.realExternalIP
     this.previousConfig
@@ -149,8 +150,17 @@ class RachioPlatform {
         personInfo=response
         this.log.info('Found Account for username %s',personInfo.data.username)
         this.configureListener()
-        personInfo.data.devices.forEach((newDevice)=>{    
-          this.log.info('Found Device %s Status %s',newDevice.name,newDevice.status)
+        personInfo.data.devices
+        .filter((newDevice) => {
+          if (!this.device_id || this.device_id == newDevice.id)
+            return true
+          else {
+            this.log.info('Skipping controller %s. ID %s does not match configured ID %s',newDevice.name,newDevice.id,this.device_id)
+            return false
+          }
+        })
+        .forEach((newDevice)=>{    
+          this.log.info('Found Device %s (ID: %s) Status %s',newDevice.name,newDevice.id,newDevice.status)
           let uuid = newDevice.id
 
           this.log.info('Getting Device State info...')
